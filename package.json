@@ -1,0 +1,39 @@
+{
+  "name": "claude-toolkit",
+  "version": "1.0.0",
+  "description": "Claude toolkit for Hexium team",
+  "bin": {
+    "claude-setup": "./bin/claude-setup.js",
+    "claude-validate": "./scripts/validate.js"
+  },
+  "scripts": {
+    "postinstall": "node bin/claude-setup.js",
+    "test": "node scripts/validate.js",
+    "prepublishOnly": "npm test"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    "templates/",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hexium-agency/claude-toolkit.git"
+  },
+  "keywords": [
+    "claude-code",
+    "ai",
+    "development-tools",
+    "toolkit"
+  ],
+  "author": "GaelWLR <gael@hexium.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hexium-agency/claude-toolkit/issues"
+  },
+  "homepage": "https://github.com/hexium-agency/claude-toolkit#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

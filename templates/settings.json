@@ -1,0 +1,28 @@
+{
+  "cleanupPeriodDays": 10,
+  "enableAllProjectMcpServers": true,
+  "includeCoAuthoredBy": false,
+  "model": "sonnet",
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git status:*)",
+      "Bash(glob:*)",
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(rg:*)",
+      "mcp__clickup",
+      "mcp__context7",
+      "mcp__sentry"
+    ],
+    "defaultMode": "plan",
+    "deny": [
+      "Bash(curl:*)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)"
+    ]
+  }
+}
