@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Claude toolkit for Hexium team",
   "bin": {
-    "claude-setup": "./bin/claude-setup.js",
-    "claude-validate": "./scripts/validate.js"
+    "claude-setup": "bin/claude-setup.js",
+    "claude-validate": "scripts/validate.js"
   },
   "scripts": {
     "postinstall": "node bin/claude-setup.js",
