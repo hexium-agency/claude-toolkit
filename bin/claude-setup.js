@@ -52,6 +52,16 @@ function copyFiles() {
     }
   });
 
+  // Create .gitignore in .claude directory
+  const claudeGitignorePath = path.join(claudeDir, ".gitignore");
+
+  const gitignoreContent = `# Ignore Hexium toolkit settings to prevent noise in PRs
+settings.json
+*/hxm/*`;
+  const action = fs.existsSync(claudeGitignorePath) ? "Updated" : "Created";
+  fs.writeFileSync(claudeGitignorePath, gitignoreContent);
+  console.log(`📄 ${action}: .gitignore in .claude directory`);
+
   subDirs.forEach((subDir) => {
     namespaces.forEach((namespace) => {
       const srcSubDir = path.join(templatesDir, subDir, namespace);
