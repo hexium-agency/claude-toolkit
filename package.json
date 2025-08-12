@@ -1,5 +1,5 @@
 {
-  "name": "claude-toolkit",
+  "name": "@hexium/claude-toolkit",
   "version": "1.0.0",
   "description": "Claude toolkit for Hexium team",
   "bin": {
