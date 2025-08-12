@@ -1,6 +1,6 @@
 {
   "name": "@hexium/claude-toolkit",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Claude toolkit for Hexium team",
   "bin": {
     "claude-setup": "bin/claude-setup.js",
