@@ -8,7 +8,7 @@ const templatesDir = path.join(__dirname, "..", "templates");
 let errors = 0;
 
 // Check that essential files exist
-const requiredFiles = ["settings.json"];
+const requiredFiles = ["settings.json", ".mcp.json"];
 
 // Check that essential files exist
 requiredFiles.forEach((file) => {
@@ -21,15 +21,20 @@ requiredFiles.forEach((file) => {
   }
 });
 
-// Check JSON syntax for settings.json
-try {
-  const configPath = path.join(templatesDir, "settings.json");
-  JSON.parse(fs.readFileSync(configPath, "utf8"));
-  console.log("✅ settings.json is valid");
-} catch (error) {
-  console.error("❌ settings.json is invalid:", error.message);
-  errors++;
-}
+// Check JSON syntax for JSON files
+const jsonFiles = ["settings.json", ".mcp.json"];
+jsonFiles.forEach((file) => {
+  try {
+    const filePath = path.join(templatesDir, file);
+    if (fs.existsSync(filePath)) {
+      JSON.parse(fs.readFileSync(filePath, "utf8"));
+      console.log(`✅ ${file} is valid`);
+    }
+  } catch (error) {
+    console.error(`❌ ${file} is invalid:`, error.message);
+    errors++;
+  }
+});
 
 if (errors > 0) {
   console.error(`❌ ${errors} error(s) found`);
