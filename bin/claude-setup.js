@@ -20,7 +20,7 @@ copyRootFiles();
 
 copyClaudeFiles();
 
-createClaudeGitignore();
+updateRootGitignore();
 
 copyNamespaceFiles();
 
@@ -92,15 +92,47 @@ function createClaudeDirectory(claudeDir) {
   }
 }
 
-function createClaudeGitignore() {
-  const claudeGitignorePath = path.join(claudeDir, ".gitignore");
-  const gitignoreContent = `# Ignore Hexium toolkit settings to prevent noise in PRs
-settings.json
-*/hxm/*`;
+function updateRootGitignore() {
+  const rootGitignorePath = path.join(projectRoot, ".gitignore");
+  const newEntries = [
+    "# Ignore Hexium toolkit settings to prevent noise in PRs",
+    ".claude/settings.json",
+    ".claude/*/hxm/*",
+    ".mcp.json"
+  ];
 
-  const action = fs.existsSync(claudeGitignorePath) ? "Updated" : "Created";
-  fs.writeFileSync(claudeGitignorePath, gitignoreContent);
-  console.log(`📄 ${action}: .gitignore in .claude directory`);
+  let existingContent = "";
+  let needsUpdate = false;
+
+  if (fs.existsSync(rootGitignorePath)) {
+    existingContent = fs.readFileSync(rootGitignorePath, "utf8");
+  }
+
+  // Check which entries need to be added
+  const entriesToAdd = newEntries.filter(entry => {
+    if (entry.startsWith("#")) {
+      // Don't duplicate comment if any of our patterns exist
+      return !newEntries.slice(1).some(pattern => existingContent.includes(pattern));
+    }
+    return !existingContent.includes(entry);
+  });
+
+  if (entriesToAdd.length > 0) {
+    const separator = existingContent && !existingContent.endsWith("\n") ? "\n" : "";
+    const newContent = existingContent + separator + entriesToAdd.join("\n") + "\n";
+    fs.writeFileSync(rootGitignorePath, newContent);
+    needsUpdate = true;
+  }
+
+  let action;
+  if (fs.existsSync(rootGitignorePath) && !needsUpdate) {
+    action = "Already up to date";
+  } else if (existingContent) {
+    action = "Updated";
+  } else {
+    action = "Created";
+  }
+  console.log(`📄 ${action}: .gitignore (at project root)`);
 }
 
 function findProjectRoot() {
