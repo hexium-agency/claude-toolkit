@@ -38,7 +38,7 @@ export default [
       'no-console': 'off',
     },
     languageOptions: {
-      sourceType: 'script',
+      sourceType: 'module',
     },
   },
   {
