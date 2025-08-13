@@ -85,7 +85,7 @@ settings.json
         fs.readdirSync(srcSubDir).forEach((file) => {
           const srcFile = path.join(srcSubDir, file);
           const destFile = path.join(destNamespaceDir, file);
-          
+
           if (fs.statSync(srcFile).isFile()) {
             fs.copyFileSync(srcFile, destFile);
             console.log(`📄 Updated: ${file}`);
@@ -94,29 +94,6 @@ settings.json
       }
     });
   });
-}
-
-function copyRecursive(src, dest, forceOverwrite = false) {
-  if (fs.statSync(src).isDirectory()) {
-    if (!fs.existsSync(dest)) {
-      fs.mkdirSync(dest, { recursive: true });
-    }
-    fs.readdirSync(src).forEach((file) => {
-      copyRecursive(
-        path.join(src, file),
-        path.join(dest, file),
-        forceOverwrite
-      );
-    });
-  } else {
-    if (!fs.existsSync(dest) || forceOverwrite) {
-      fs.copyFileSync(src, dest);
-      const action = forceOverwrite ? "Updated" : "Copied";
-      console.log(`📄 ${action}: ${path.basename(dest)}`);
-    } else {
-      console.log(`⏭️ Skipped (already exists): ${path.basename(dest)}`);
-    }
-  }
 }
 
 copyFiles();

@@ -1,7 +1,7 @@
 ---
 allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git diff:*), Bash(git log:*)
 argument-hint: --all | --files <file1> <file2> ...
-description: Commit changes with a diff analysis for the commit message.
+description: Generate and execute git commit with conventional commit message based on provided arguments and staged changes.
 model: claude-3-5-haiku-latest
 ---
 
@@ -26,18 +26,26 @@ Smart git commit tool that works with staged changes or stages files on demand. 
 
 ## Process
 
-1. Parse command arguments:
-   - If both `--all` and `--files` are provided: Exit with error message "Cannot use --all and --files together"
-   - If `--all` is provided: Run `git add .` to stage all changes
-   - If `--files` is provided: Run `git add [specified files]` to stage only those files
-   - If no arguments: Work with already staged changes
-2. **MANDATORY: Check the diff with `git diff --cached`**:
-   - If there are NO staged changes to commit, STOP immediately and inform the user "No staged changes found. Please stage files first with 'git add' or use --all/--files flags"
-   - If there ARE staged changes: Continue to step 4
-3. Determine the appropriate commit type (feat, fix, docs, refactor, style, test, chore, etc.) based on the changes
-4. Generate a descriptive commit message following the format explained below
-5. Create a short commit description (1-2 sentences) explaining the purpose of the changes
-6. Commit the changes with the generated message and description
+**IMPORTANT: This command is self-contained and handles all required git operations automatically.**
+
+### Step 1: Argument Processing
+- If both `--all` and `--files` are provided: Exit with error "Cannot use --all and --files together"
+- If `--all` is provided: Stage all modified files with `git add .`
+- If `--files <file1> <file2>` is provided: Stage only specified files with `git add <files>`
+- If no arguments: Proceed with existing staged changes only
+
+### Step 2: Validation Check
+Run `git diff --cached` to check staged changes:
+- **If NO staged changes exist**: Stop and inform user "No staged changes found. Use --all, --files, or manually stage changes first."
+- **If staged changes exist**: Continue to commit process
+
+### Step 3: Commit Generation
+Only when staged changes are confirmed:
+1. Analyze the diff to determine appropriate commit type (feat, fix, docs, refactor, style, test, chore, etc.)
+2. Generate conventional commit message following the format below
+3. Create commit with generated message
+
+**DO NOT perform any git operations beyond what is explicitly required by the provided arguments.**
 
 ## Commit Message Format
 
