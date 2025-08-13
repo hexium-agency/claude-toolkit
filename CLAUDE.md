@@ -11,7 +11,6 @@ This is `claude-toolkit`, an npm package that standardizes Claude Code configura
 - `npm test` - Validates template integrity and required files
 - `npm run prepublishOnly` - Runs validation before publishing
 - `npx claude-setup` - Installs toolkit templates to target project's `.claude/` directory
-- `npx claude-sync` - Updates existing installations with latest templates
 - `npx claude-validate` - Validates that all required template files exist and are valid
 
 ## Architecture
@@ -24,20 +23,20 @@ This is `claude-toolkit`, an npm package that standardizes Claude Code configura
 - Creates `.claude/` directory if it doesn't exist
 
 **Maintenance Scripts (`/scripts/`)**:
-- `sync.js`: Re-runs installation to update templates
 - `validate.js`: Ensures required files exist and JSON syntax is valid
 
 **Template System (`/templates/`)**:
-- `.claude-config.json`: Team configuration with default prompts, settings, and standards
-- `prompts/code-review.md`: Standardized code review prompt template
+- `settings.json`: Claude Code configuration with team standards and permissions
+- `commands/hxm/commit.md`: Custom commit command with conventional commit format
 
-### Team Standards (from .claude-config.json)
+### Team Standards (from settings.json)
 
-- **Code Style**: Prettier
-- **Test Framework**: Jest  
-- **Documentation**: JSDoc
-- **Model**: claude-sonnet-4
-- **Auto-commit**: Disabled by default
+- **Model**: Sonnet (claude-3-5-sonnet)
+- **Default Mode**: Plan mode for complex tasks
+- **Permissions**: Restricted bash commands, MCP servers enabled (ClickUp, Context7, Sentry)
+- **Cleanup**: 10-day cleanup period for temporary files
+- **Hooks**: Audio notifications for task completion and stops
+- **Co-authoring**: Disabled by default
 
 ## Development Notes
 
@@ -47,9 +46,19 @@ This is `claude-toolkit`, an npm package that standardizes Claude Code configura
 - Validation prevents broken installations
 - Package is designed for internal team use with specific GitHub repository structure
 
+## Custom Commands
+
+**HXM Commit Command (`commands/hxm/commit.md`)**:
+- Intelligent commit message generation using conventional commit format
+- Supports `--all` flag to stage all changes or `--files` for specific files
+- Uses Claude 3.5 Haiku for fast commit message generation
+- Analyzes git diffs to determine appropriate commit types (feat, fix, docs, etc.)
+- Restricted to essential git operations for security
+
 ## Key Behaviors
 
 - Installation preserves existing files (logs "Skipped (already exists)" for duplicates)
-- Validation checks for required files: `.claude-config.json` and `prompts/code-review.md`
+- Validation checks for required files: `settings.json` and `commands/hxm/commit.md`
 - JSON configuration is validated for syntax errors
 - Scripts use `#!/usr/bin/env node` for cross-platform compatibility
+- Custom commands are installed with proper permissions and model configurations
