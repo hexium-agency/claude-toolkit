@@ -14,7 +14,8 @@ Smart git commit tool that works with staged changes or stages files on demand. 
 ## Usage
 
 ```bash
-/commit [--all] [--files <file1> <file2> ...]
+# In claude prompt, use the following command to commit changes:
+/hxm:commit [--all] [--files <file1> <file2> ...]
 ```
 
 ## Arguments
@@ -36,7 +37,7 @@ Smart git commit tool that works with staged changes or stages files on demand. 
 3. Determine the appropriate commit type (feat, fix, docs, refactor, style, test, chore, etc.) based on the changes
 4. Generate a descriptive commit message following the format explained below
 5. Create a short commit description (1-2 sentences) explaining the purpose of the changes
-6. Create the commit with both message and description
+6. Commit the changes with the generated message and description
 
 ## Commit Message Format
 
