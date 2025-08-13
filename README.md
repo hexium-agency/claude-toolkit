@@ -43,11 +43,11 @@ This creates a `.claude/` directory in your project with:
 
 ### MCP Environment Variables
 
-The toolkit includes MCP server integrations (ClickUp, Context7, Sentry) that require environment variables. Add these to your global shell profile:
+The toolkit includes MCP server integrations that may require environment variables. Add these to your global shell profile:
 
 ```bash
 # ~/.zshrc or ~/.bashrc
-export CLICKUP_API_KEY="your_clickup_api_token"
+export CLICKUP_API_KEY="your_clickup_api_key"
 export CLICKUP_TEAM_ID="your_clickup_team_id"
 ```
 
