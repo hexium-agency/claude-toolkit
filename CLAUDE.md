@@ -11,7 +11,6 @@ This is `claude-toolkit`, an npm package that standardizes Claude Code configura
 - `npm test` - Validates template integrity and required files
 - `npm run prepublishOnly` - Runs validation before publishing
 - `npx claude-setup` - Installs toolkit templates to target project's `.claude/` directory
-- `npx claude-validate` - Validates that all required template files exist and are valid
 
 ## Architecture
 
