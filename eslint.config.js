@@ -33,12 +33,21 @@ export default [
     },
   },
   {
-    files: ['bin/**/*.js', 'scripts/**/*.js'],
+    files: ['bin/**/*.js'],
     rules: {
       'no-console': 'off',
     },
     languageOptions: {
       sourceType: 'script',
+    },
+  },
+  {
+    files: ['scripts/**/*.js'],
+    rules: {
+      'no-console': 'off',
+    },
+    languageOptions: {
+      sourceType: 'module',
     },
   },
 ];

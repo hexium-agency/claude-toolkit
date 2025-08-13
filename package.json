@@ -12,7 +12,8 @@
     "lint:check": "eslint .",
     "postinstall": "node bin/claude-setup.js",
     "prepublishOnly": "npm test",
-    "test": "node scripts/validate.js"
+    "test": "node scripts/validate.js",
+    "prepare": "husky"
   },
   "type": "module",
   "files": [
@@ -45,6 +46,8 @@
     "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.5",
     "prettier": "^3.6.2"
   }
 }
