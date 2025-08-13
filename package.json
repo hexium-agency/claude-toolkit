@@ -6,10 +6,15 @@
     "claude-setup": "bin/claude-setup.js"
   },
   "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
     "postinstall": "node bin/claude-setup.js",
-    "test": "node scripts/validate.js",
-    "prepublishOnly": "npm test"
+    "prepublishOnly": "npm test",
+    "test": "node scripts/validate.js"
   },
+  "type": "module",
   "files": [
     "bin/",
     "scripts/",
@@ -34,5 +39,12 @@
   "homepage": "https://github.com/hexium-agency/claude-toolkit#readme",
   "engines": {
     "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "eslint": "^9.33.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.6.2"
   }
 }

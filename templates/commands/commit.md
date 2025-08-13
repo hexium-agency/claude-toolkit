@@ -32,14 +32,12 @@ Smart git commit tool that works as described in the Process section below.
 **Only proceed with the following steps if you are NOT in plan mode:**
 
 1. **Argument Processing**
-
    - If both `--all` and `--files` are provided: Exit with error "Cannot use --all and --files together"
    - If `--all` is provided: Stage all modified files with `git add .`
    - If `--files <file1> <file2>` is provided: Stage only specified files with `git add <files>`
    - If no arguments: Proceed with existing staged changes only
 
 2. **Validation Check**
-
    - Run `git diff --cached` to check staged changes
    - **CRITICAL: If NO staged changes exist: Stop and inform user "No staged changes found. Use --all, --files, or manually stage changes first."**
    - If staged changes exist: Continue to step 3 with the diff in memory

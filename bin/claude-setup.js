@@ -1,18 +1,18 @@
 #!/usr/bin/env node
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 // Config variables
-const claudeFiles = [{ src: "settings.json", dest: "settings.json" }];
-const rootFiles = [{ src: ".mcp.json", dest: ".mcp.json" }];
-const subDirs = ["commands"];
-const namespaces = ["hxm"];
+const claudeFiles = [{ src: 'settings.json', dest: 'settings.json' }];
+const rootFiles = [{ src: '.mcp.json', dest: '.mcp.json' }];
+const subDirs = ['commands'];
+const namespaces = ['hxm'];
 
-console.log("🔧 Installing Claude Code toolkit...");
+console.log('🔧 Installing Claude Code toolkit...');
 
 const projectRoot = findProjectRoot();
-const claudeDir = path.join(projectRoot, ".claude");
-const templatesDir = path.join(__dirname, "..", "templates");
+const claudeDir = path.join(projectRoot, '.claude');
+const templatesDir = path.join(__dirname, '..', 'templates');
 
 createClaudeDirectory(claudeDir);
 
@@ -24,7 +24,7 @@ updateRootGitignore();
 
 copyNamespaceFiles();
 
-console.log("✅ Installation completed!");
+console.log('✅ Installation completed!');
 console.log(`💡 Hexium templates are available in .claude/*/hxm/`);
 
 function copyClaudeFiles() {
@@ -33,7 +33,7 @@ function copyClaudeFiles() {
     const destPath = path.join(claudeDir, dest);
 
     if (fs.existsSync(srcPath)) {
-      const action = fs.existsSync(destPath) ? "Updated" : "Created";
+      const action = fs.existsSync(destPath) ? 'Updated' : 'Created';
       fs.copyFileSync(srcPath, destPath);
       console.log(`📄 ${action}: ${dest}`);
     }
@@ -41,8 +41,8 @@ function copyClaudeFiles() {
 }
 
 function copyNamespaceFiles() {
-  subDirs.forEach((subDir) => {
-    namespaces.forEach((namespace) => {
+  subDirs.forEach(subDir => {
+    namespaces.forEach(namespace => {
       const srcSubDir = path.join(templatesDir, subDir);
       const destSubDirBase = path.join(claudeDir, subDir);
       const destNamespaceDir = path.join(destSubDirBase, namespace);
@@ -58,7 +58,7 @@ function copyNamespaceFiles() {
       }
 
       if (fs.existsSync(srcSubDir)) {
-        fs.readdirSync(srcSubDir).forEach((file) => {
+        fs.readdirSync(srcSubDir).forEach(file => {
           const srcFile = path.join(srcSubDir, file);
           const destFile = path.join(destNamespaceDir, file);
 
@@ -78,7 +78,7 @@ function copyRootFiles() {
     const destPath = path.join(projectRoot, dest);
 
     if (fs.existsSync(srcPath)) {
-      const action = fs.existsSync(destPath) ? "Updated" : "Created";
+      const action = fs.existsSync(destPath) ? 'Updated' : 'Created';
       fs.copyFileSync(srcPath, destPath);
       console.log(`📄 ${action}: ${dest} (at project root)`);
     }
@@ -88,49 +88,53 @@ function copyRootFiles() {
 function createClaudeDirectory(claudeDir) {
   if (!fs.existsSync(claudeDir)) {
     fs.mkdirSync(claudeDir, { recursive: true });
-    console.log("📁 .claude directory created");
+    console.log('📁 .claude directory created');
   }
 }
 
 function updateRootGitignore() {
-  const rootGitignorePath = path.join(projectRoot, ".gitignore");
+  const rootGitignorePath = path.join(projectRoot, '.gitignore');
   const newEntries = [
-    "# Ignore Hexium toolkit settings to prevent noise in PRs",
-    ".claude/settings.json",
-    ".claude/*/hxm/*",
-    ".mcp.json"
+    '# Ignore Hexium toolkit settings to prevent noise in PRs',
+    '.claude/settings.json',
+    '.claude/*/hxm/*',
+    '.mcp.json',
   ];
 
-  let existingContent = "";
+  let existingContent = '';
   let needsUpdate = false;
 
   if (fs.existsSync(rootGitignorePath)) {
-    existingContent = fs.readFileSync(rootGitignorePath, "utf8");
+    existingContent = fs.readFileSync(rootGitignorePath, 'utf8');
   }
 
   // Check which entries need to be added
   const entriesToAdd = newEntries.filter(entry => {
-    if (entry.startsWith("#")) {
+    if (entry.startsWith('#')) {
       // Don't duplicate comment if any of our patterns exist
-      return !newEntries.slice(1).some(pattern => existingContent.includes(pattern));
+      return !newEntries
+        .slice(1)
+        .some(pattern => existingContent.includes(pattern));
     }
     return !existingContent.includes(entry);
   });
 
   if (entriesToAdd.length > 0) {
-    const separator = existingContent && !existingContent.endsWith("\n") ? "\n" : "";
-    const newContent = existingContent + separator + entriesToAdd.join("\n") + "\n";
+    const separator =
+      existingContent && !existingContent.endsWith('\n') ? '\n' : '';
+    const newContent =
+      existingContent + separator + entriesToAdd.join('\n') + '\n';
     fs.writeFileSync(rootGitignorePath, newContent);
     needsUpdate = true;
   }
 
   let action;
   if (fs.existsSync(rootGitignorePath) && !needsUpdate) {
-    action = "Already up to date";
+    action = 'Already up to date';
   } else if (existingContent) {
-    action = "Updated";
+    action = 'Updated';
   } else {
-    action = "Created";
+    action = 'Created';
   }
   console.log(`📄 ${action}: .gitignore (at project root)`);
 }
@@ -140,14 +144,14 @@ function findProjectRoot() {
 
   if (!process.env.INIT_CWD) {
     let current = __dirname;
-    while (current !== "/" && !current.includes("node_modules")) {
+    while (current !== '/' && !current.includes('node_modules')) {
       current = path.dirname(current);
     }
 
-    if (current.includes("node_modules")) {
+    if (current.includes('node_modules')) {
       const nodeModulesPath = current.substring(
         0,
-        current.indexOf("node_modules")
+        current.indexOf('node_modules')
       );
       projectRoot = nodeModulesPath || process.cwd();
     }
