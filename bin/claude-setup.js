@@ -64,7 +64,7 @@ settings.json
 
   subDirs.forEach((subDir) => {
     namespaces.forEach((namespace) => {
-      const srcSubDir = path.join(templatesDir, subDir, namespace);
+      const srcSubDir = path.join(templatesDir, subDir);
       const destSubDirBase = path.join(claudeDir, subDir);
       const destNamespaceDir = path.join(destSubDirBase, namespace);
 
@@ -81,7 +81,16 @@ settings.json
       }
 
       if (fs.existsSync(srcSubDir)) {
-        copyRecursive(srcSubDir, destNamespaceDir, true); // Always overwrite hxm content
+        // Copy all files from templates/commands/ to .claude/commands/hxm/
+        fs.readdirSync(srcSubDir).forEach((file) => {
+          const srcFile = path.join(srcSubDir, file);
+          const destFile = path.join(destNamespaceDir, file);
+          
+          if (fs.statSync(srcFile).isFile()) {
+            fs.copyFileSync(srcFile, destFile);
+            console.log(`📄 Updated: ${file}`);
+          }
+        });
       }
     });
   });
