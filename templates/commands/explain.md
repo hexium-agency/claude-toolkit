@@ -1,6 +1,8 @@
 ---
 allowed-tools: [Read, Grep, Glob, Bash]
+argument-hint: <target> [--audience developer|architect|junior] [--style technical|visual|tutorial]
 description: 'Break down and explain code structures, patterns, and system architecture'
+model: claude-3-5-sonnet-latest
 ---
 
 # /hxm:explain - Code Architecture & Pattern Explanation
