@@ -3,7 +3,7 @@
   "version": "1.4.0",
   "description": "Claude toolkit for Hexium team",
   "bin": {
-    "global-install": "bin/global-install.js",
+    "user-install": "bin/user-install.js",
     "project-install": "bin/project-install.js"
   },
   "scripts": {
