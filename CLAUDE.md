@@ -28,12 +28,15 @@ This is `claude-toolkit`, an npm package that standardizes Claude Code configura
 
 **Template System (`/templates/`)**:
 
+- `.mcp.json`: Shared MCP configuration
 - `settings.json`: Claude Code configuration with team standards and permissions
-- `commands/hxm/commit.md`: Custom commit command with conventional commit format
+- `commands/commit.md`: Custom commit command with conventional commit format
+- `commands/document.md`: Custom document command with file structure and content
+- `commands/explain.md`: Custom explain command for
 
 ### Team Standards (from settings.json)
 
-- **Model**: Sonnet (claude-3-5-sonnet)
+- **Model**: Sonnet (claude-4-sonnet)
 - **Default Mode**: Plan mode for complex tasks
 - **Permissions**: Restricted bash commands (see Security Model below), MCP servers enabled
 - **Cleanup**: 10-day cleanup period for temporary files
