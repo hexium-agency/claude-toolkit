@@ -29,7 +29,7 @@ This is `claude-toolkit`, an npm package that standardizes Claude Code configura
 **Template System (`/templates/`)**:
 
 - `.mcp.json`: Shared MCP configuration
-- `settings.json`: Claude Code configuration with team standards and permissions
+- `settings.json`: Claude Code configuration with team standards, permissions, and status line setup
 - `agents/accessibility-expert.md`: WCAG compliance and accessibility audit specialist
 - `agents/context7-expert.md`: Live documentation retrieval to prevent AI hallucinations
 - `agents/code-review-expert.md`: Comprehensive code quality, security, and performance review
@@ -45,6 +45,7 @@ This is `claude-toolkit`, an npm package that standardizes Claude Code configura
 - **Model**: Sonnet (claude-4-sonnet)
 - **Default Mode**: Plan mode for complex tasks
 - **Permissions**: Restricted bash commands (see Security Model below), MCP servers enabled
+- **Status Line**: Integrated usage tracking via `npx ccusage@latest statusline`
 - **Cleanup**: 10-day cleanup period for temporary files
 - **Hooks**: Audio notifications for task completion and stops
 - **Co-authoring**: Disabled by default

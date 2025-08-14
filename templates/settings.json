@@ -48,5 +48,10 @@
       "Read(./.env.*)",
       "Read(./secrets/**)"
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx ccusage@latest statusline",
+    "padding": 0
   }
 }

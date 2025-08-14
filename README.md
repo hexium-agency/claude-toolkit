@@ -12,6 +12,7 @@ A standardized toolkit for Claude Code configurations across Hexium team project
 - **Security-First**: Pre-configured permissions with safe defaults
 - **Expert Agents**: 5 specialized AI agents for accessibility, security, performance, code review, and documentation
 - **Template System**: Ready-to-use agents, commands and configurations
+- **Status Line Integration**: Built-in status line with usage tracking via ccusage
 - **Easy Installation**: One-command setup for new projects
 
 ## 📦 Installation
@@ -138,6 +139,7 @@ This toolkit enforces Hexium team standards:
 
 - **Model**: Claude Sonnet 4 default
 - **Default Mode**: Plan mode for complex tasks
+- **Status Line**: Integrated usage tracking with ccusage
 - **Auto-commit**: Disabled by default
 
 ## 🤖 Expert Agents
@@ -210,6 +212,17 @@ The toolkit includes 4 intelligent commands for development workflow:
 - **Audience-tailored** explanations (developer, architect, junior)
 - **Multiple formats** (technical deep-dive, visual diagrams, tutorials)
 - **Dependency mapping** and data flow analysis
+
+## 📊 Status Line Integration
+
+The toolkit includes a built-in status line that displays usage information:
+
+- **Command**: `npx ccusage@latest statusline`
+- **Display**: Shows Claude Code usage metrics in the status line
+- **Configuration**: Zero padding for clean display
+- **Updates**: Automatically refreshes with latest usage data
+
+The status line provides real-time insights into your Claude Code usage patterns and helps track project development metrics.
 
 ## 🔌 MCP Integration
 
