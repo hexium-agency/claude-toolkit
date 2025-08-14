@@ -30,9 +30,10 @@ This is `claude-toolkit`, an npm package that standardizes Claude Code configura
 
 - `.mcp.json`: Shared MCP configuration
 - `settings.json`: Claude Code configuration with team standards and permissions
+- `commands/bump.md`: Smart version bump command with automatic semver analysis
 - `commands/commit.md`: Custom commit command with conventional commit format
-- `commands/document.md`: Custom document command with file structure and content
-- `commands/explain.md`: Custom explain command for
+- `commands/document.md`: Intelligent documentation generator with inline/centralized options
+- `commands/explain.md`: Code architecture and pattern explanation tool
 
 ### Team Standards (from settings.json)
 
@@ -82,13 +83,37 @@ export CLICKUP_TEAM_ID="your_clickup_team_id"
 
 ## Custom Commands
 
+**HXM Bump Command (`commands/hxm/bump.md`)**:
+
+- Smart version bumping with automatic semver analysis
+- Analyzes commit history to suggest appropriate version increment (major/minor/patch)
+- Supports Node.js, Rust, Python, and PHP projects
+- Generates descriptive commit messages based on changes
+- Follows conventional commit standards for version determination
+
 **HXM Commit Command (`commands/hxm/commit.md`)**:
 
 - Intelligent commit message generation using conventional commit format
 - Supports `--all` flag to stage all changes or `--files` for specific files
-- Uses Claude 3.5 Haiku for fast commit message generation
 - Analyzes git diffs to determine appropriate commit types (feat, fix, docs, etc.)
+- Generates extended commit messages with descriptions for complex changes
 - Restricted to essential git operations for security
+
+**HXM Document Command (`commands/hxm/document.md`)**:
+
+- Intelligent documentation generator with flexible output formats
+- Supports inline documentation (JSDoc, docstrings) or centralized markdown docs
+- Analyzes project structure to create only relevant documentation sections
+- Brief mode for essential docs, detailed mode for comprehensive coverage
+- Creates structured `/documentation/` folder with organized subject categories
+
+**HXM Explain Command (`commands/hxm/explain.md`)**:
+
+- Code architecture and pattern explanation tool
+- Tailored explanations for different audiences (developer, architect, junior)
+- Multiple explanation styles (technical deep-dive, visual diagrams, tutorials)
+- Analyzes dependencies, design patterns, and system interactions
+- Maps code relationships and data flow patterns
 
 ## Security Model
 
@@ -131,7 +156,7 @@ export CLICKUP_TEAM_ID="your_clickup_team_id"
 **Key Behaviors**:
 
 - Installation preserves existing files (logs "Skipped (already exists)" for duplicates)
-- Validation checks for required files: `settings.json` and `commands/hxm/commit.md`
+- Validation checks for required files: `settings.json`, `.mcp.json`, and command templates
 - JSON configuration is validated for syntax errors
 - Scripts use `#!/usr/bin/env node` for cross-platform compatibility
 - Custom commands are installed with proper permissions and model configurations
