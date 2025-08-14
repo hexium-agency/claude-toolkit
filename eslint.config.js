@@ -50,4 +50,13 @@ export default [
       sourceType: 'module',
     },
   },
+  {
+    files: ['lib/**/*.js'],
+    rules: {
+      'no-console': 'off',
+    },
+    languageOptions: {
+      sourceType: 'module',
+    },
+  },
 ];
