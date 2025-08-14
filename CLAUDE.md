@@ -10,17 +10,19 @@ This is `claude-toolkit`, an npm package that standardizes Claude Code configura
 
 - `npm test` - Validates template integrity and required files
 - `npm run prepublishOnly` - Runs validation before publishing
-- `npx claude-setup` - Installs toolkit templates to target project's `.claude/` directory
+- `npx @hexium/claude-toolkit@latest user-install` - Installs toolkit to user's `~/.claude/` directory
+- `npx @hexium/claude-toolkit@latest project-install` - Installs toolkit to project's `.claude/` directory
 
 ## Architecture
 
 ### Core Components
 
-**Installation System (`/bin/claude-setup.js`)**:
+**Dual Installation System**:
 
-- Copies templates from `/templates/` to target project's `.claude/` directory
-- Uses recursive copying with existence checks (never overwrites existing files)
-- Creates `.claude/` directory if it doesn't exist
+- **User Install** (`/bin/user-install.js`): Installs to user's global `~/.claude/` directory with user settings management and MCP server configuration
+- **Project Install** (`/bin/project-install.js`): Installs to project's `.claude/` directory with gitignore management
+- Uses recursive copying with existence checks (preserves existing files)
+- Creates directory structure if it doesn't exist
 
 **Maintenance Scripts (`/scripts/`)**:
 
@@ -83,8 +85,9 @@ export CLICKUP_TEAM_ID="your_clickup_team_id"
 
 **Architecture Notes**:
 
-- Installation script uses `findProjectRoot()` to locate target project directory
-- Supports both `npm install` (via `postinstall`) and direct `npx claude-setup` execution
+- User installation manages global settings and MCP server configuration via Claude CLI
+- Project installation uses `getProjectRoot()` to locate target project directory
+- **Explicit installation required** - no automatic `postinstall` execution
 - Package designed for internal Hexium team use with GitHub repository integration
 
 ## Custom Commands
@@ -191,9 +194,10 @@ export CLICKUP_TEAM_ID="your_clickup_team_id"
 - Always overwrites `settings.json` and command templates to maintain team standards
 - Creates `.claude/` directory structure if it doesn't exist
 - Installs files to namespace directories (`.claude/commands/hxm/`)
-- Copies `.mcp.json` to project root for MCP server configuration
+- **Project Install**: Copies `.mcp.json` to project root and updates `.gitignore`
+- **User Install**: Configures MCP servers via Claude CLI
 
-**Gitignore Management**:
+**Gitignore Management (Project Installation Only)**:
 
 - Automatically updates project `.gitignore` to exclude toolkit files
 - Prevents toolkit files from appearing in PRs with entries for:
@@ -215,15 +219,17 @@ export CLICKUP_TEAM_ID="your_clickup_team_id"
 
 **MCP Integration Not Working**:
 
-- Verify environment variables are set: `echo $CLICKUP_API_KEY`
+- **User Install**: Verify environment variables are set: `echo $CLICKUP_API_KEY`
+- **User Install**: Check MCP server status: `claude mcp list`
+- **Project Install**: Ensure `.mcp.json` exists in project root
 - Restart terminal after adding environment variables to shell profile
-- Ensure `.mcp.json` exists in project root (installed automatically)
 
 **Installation Issues**:
 
 - Ensure Node.js 18+ is installed: `node --version`
-- For permission issues, try: `npx claude-setup` instead of automatic postinstall
+- Use explicit commands: `npx @hexium/claude-toolkit@latest user-install` or `project-install`
 - Check that templates directory exists in installed package
+- For user install: verify MCP CLI availability with `claude mcp list`
 
 **Validation Failures**:
 

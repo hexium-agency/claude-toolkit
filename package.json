@@ -11,7 +11,6 @@
     "format:check": "prettier --check .",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
-    "postinstall": "node bin/project-install.js",
     "prepublishOnly": "npm test",
     "test": "node scripts/validate.js",
     "prepare": "husky"

@@ -17,31 +17,54 @@ A standardized toolkit for Claude Code configurations across Hexium team project
 
 ## 📦 Installation
 
+Two installation modes are available:
+
+### User Installation (Global Settings)
+
 ```bash
-npm install --save-dev @hexium-agency/claude-toolkit
+npx @hexium/claude-toolkit@latest user-install
 ```
+
+Installs to your global `~/.claude/` directory with user settings and MCP server configuration.
+
+### Project Installation (Project Settings)
+
+```bash
+npx @hexium/claude-toolkit@latest project-install
+```
+
+Installs to your project's `.claude/` directory with team configurations.
 
 ### Requirements
 
 - Node.js 18.0.0 or higher
 - npm or yarn package manager
+- Claude CLI installed for user installation MCP server setup
 
 ## 🚀 Usage
 
 ### Initial Setup
 
-After installation, the toolkit automatically runs setup:
+Choose your installation type based on your needs:
+
+**For global user configuration:**
 
 ```bash
-npx claude-setup
+npx @hexium/claude-toolkit@latest user-install
 ```
 
-This creates a `.claude/` directory in your project with:
+**For project-specific configuration:**
+
+```bash
+npx @hexium/claude-toolkit@latest project-install
+```
+
+This creates configuration in the appropriate location with:
 
 - `settings.json` - Team configuration with permissions and defaults
-- `.mcp.json` - Shared MCP configuration
 - `agents/hxm/` - Hexium team expert AI agents
 - `commands/hxm/` - Hexium team custom commands
+- `.mcp.json` - MCP server configuration (project installation only)
 
 ## ⚙️ Configuration
 
@@ -109,7 +132,11 @@ The toolkit includes safe default permissions:
 ```
 claude-toolkit/
 ├── bin/
-│   └── claude-setup.js      # Installation script
+│   ├── user-install.js      # User installation script
+│   └── project-install.js   # Project installation script
+├── lib/
+│   ├── file-utils.js        # File operation utilities
+│   └── settings-merger.js   # Settings management utilities
 ├── scripts/
 │   └── validate.js          # Validation script
 ├── templates/
@@ -126,11 +153,15 @@ claude-toolkit/
 # Validate installation
 npm test
 
-# Re-run setup (updates templates)
-npx claude-setup
+# Re-run user setup
+npx @hexium/claude-toolkit@latest user-install --force
 
-# Validate configuration
-npx claude-validate
+# Re-run project setup
+npx @hexium/claude-toolkit@latest project-install --force
+
+# Show installation options
+npx @hexium/claude-toolkit@latest user-install --help
+npx @hexium/claude-toolkit@latest project-install --help
 ```
 
 ## 🏗 Team Standards
