@@ -10,6 +10,7 @@ A standardized toolkit for Claude Code configurations across Hexium team project
 
 - **Standardized Configuration**: Consistent Claude Code settings across all team projects
 - **Security-First**: Pre-configured permissions with safe defaults
+- **Expert Agents**: 5 specialized AI agents for accessibility, security, performance, code review, and documentation
 - **Template System**: Ready-to-use agents, commands and configurations
 - **Easy Installation**: One-command setup for new projects
 
@@ -37,7 +38,9 @@ npx claude-setup
 This creates a `.claude/` directory in your project with:
 
 - `settings.json` - Team configuration with permissions and defaults
-- `{agents|commands}/hxm` - Team folders for custom agents and commands
+- `.mcp.json` - Shared MCP configuration
+- `agents/hxm/` - Hexium team expert AI agents
+- `commands/hxm/` - Hexium team custom commands
 
 ## ⚙️ Configuration
 
@@ -109,9 +112,10 @@ claude-toolkit/
 ├── scripts/
 │   └── validate.js          # Validation script
 ├── templates/
-│   └── agents/              # Custom agents templates
-│   └── commands/            # Custom commands templates
-│   └── settings.json        # Team configuration template
+│   ├── agents/              # Expert agents templates
+│   ├── commands/            # Custom commands templates
+│   ├── settings.json        # Team configuration template
+│   └── .mcp.json           # MCP server configuration
 └── README.md
 ```
 
@@ -135,6 +139,99 @@ This toolkit enforces Hexium team standards:
 - **Model**: Claude Sonnet 4 default
 - **Default Mode**: Plan mode for complex tasks
 - **Auto-commit**: Disabled by default
+
+## 🤖 Expert Agents
+
+The toolkit includes 5 specialized AI agents that activate automatically:
+
+### 🎯 Accessibility Expert
+
+- **WCAG 2.1/2.2 compliance** audits with AA/AAA standards
+- **ARIA implementation** and semantic HTML validation
+- **Keyboard navigation** and screen reader compatibility
+- **Color contrast** analysis and inclusive design
+
+### 📚 Context7 Expert
+
+- **Live documentation** retrieval from official sources
+- **Version-specific** API usage and examples
+- **Framework integration** patterns (React, Next.js, FastAPI)
+- **Migration guides** and deprecation warnings
+
+### 🔍 Code Review Expert
+
+- **Multi-layered analysis** of security, performance, and quality
+- **OWASP Top 10** security pattern detection
+- **Algorithm efficiency** and database optimization
+- **Design patterns** and SOLID principles validation
+
+### 🛡️ Security Expert
+
+- **OWASP Top 10 2023** vulnerability assessment
+- **Dependency scanning** for CVEs and supply chain risks
+- **Secret detection** and crypto implementation review
+- **Threat modeling** using STRIDE methodology
+
+### ⚡ Performance Expert
+
+- **Core Web Vitals** optimization (LCP, FID, CLS)
+- **Bundle analysis** and backend scalability assessment
+- **Database optimization** and caching strategies
+- **Load testing** framework and capacity planning
+
+## 🔧 Custom Commands
+
+The toolkit includes 4 intelligent commands for development workflow:
+
+### 📈 HXM Bump
+
+- **Smart version bumping** with automatic semver analysis
+- **Commit history analysis** to suggest appropriate increment (major/minor/patch)
+- **Multi-language support** (Node.js, Rust, Python, PHP)
+- **Conventional commit** message generation
+
+### 💬 HXM Commit
+
+- **Intelligent commit messages** using conventional commit format
+- **Git diff analysis** to determine commit types (feat, fix, docs, etc.)
+- **Staging options** with `--all` or `--files` flags
+- **Extended descriptions** for complex changes
+
+### 📚 HXM Document
+
+- **Flexible documentation** generator (inline JSDoc/docstrings or centralized markdown)
+- **Project structure analysis** for relevant documentation sections only
+- **Organized output** in structured `/documentation/` folders
+- **Brief/detailed modes** based on coverage needs
+
+### 🔍 HXM Explain
+
+- **Code architecture** and pattern explanation tool
+- **Audience-tailored** explanations (developer, architect, junior)
+- **Multiple formats** (technical deep-dive, visual diagrams, tutorials)
+- **Dependency mapping** and data flow analysis
+
+## 🔌 MCP Integration
+
+Pre-configured MCP servers for enhanced Claude Code capabilities:
+
+### 📋 ClickUp
+
+- **Task management** integration with project workflows
+- **Issue tracking** and team collaboration
+- **Requirements**: `CLICKUP_API_KEY` and `CLICKUP_TEAM_ID` environment variables
+
+### 📖 Context7
+
+- **Live documentation** retrieval from official sources
+- **Version-specific** API references and examples
+- **Framework integration** patterns and best practices
+
+### 🐛 Sentry
+
+- **Error monitoring** and debugging integration
+- **Performance tracking** and issue analysis
+- **Production insights** for development workflow
 
 ## 🤝 Contributing
 

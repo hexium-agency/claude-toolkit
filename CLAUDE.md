@@ -30,6 +30,11 @@ This is `claude-toolkit`, an npm package that standardizes Claude Code configura
 
 - `.mcp.json`: Shared MCP configuration
 - `settings.json`: Claude Code configuration with team standards and permissions
+- `agents/accessibility-expert.md`: WCAG compliance and accessibility audit specialist
+- `agents/context7-expert.md`: Live documentation retrieval to prevent AI hallucinations
+- `agents/code-review-expert.md`: Comprehensive code quality, security, and performance review
+- `agents/security-expert.md`: OWASP Top 10 vulnerability assessment and penetration testing
+- `agents/performance-expert.md`: Core Web Vitals optimization and scalability analysis
 - `commands/bump.md`: Smart version bump command with automatic semver analysis
 - `commands/commit.md`: Custom commit command with conventional commit format
 - `commands/document.md`: Intelligent documentation generator with inline/centralized options
@@ -114,6 +119,48 @@ export CLICKUP_TEAM_ID="your_clickup_team_id"
 - Multiple explanation styles (technical deep-dive, visual diagrams, tutorials)
 - Analyzes dependencies, design patterns, and system interactions
 - Maps code relationships and data flow patterns
+
+## Expert Agents System
+
+**HXM Accessibility Expert (`agents/accessibility-expert.md`)**:
+
+- WCAG 2.1/2.2 compliance audits with AA/AAA standards
+- ARIA implementation and semantic HTML validation
+- Keyboard navigation and screen reader compatibility testing
+- Color contrast analysis and inclusive design recommendations
+- Proactive triggering on web/mobile accessibility tasks
+
+**HXM Context7 Expert (`agents/context7-expert.md`)**:
+
+- Live documentation retrieval from official sources to prevent AI hallucinations
+- Version-specific API usage and integration examples
+- Framework-specific implementation patterns (React, Next.js, FastAPI, etc.)
+- Migration guides and deprecation warnings
+- Proactive triggering on library/framework mentions
+
+**HXM Code Review Expert (`agents/code-review-expert.md`)**:
+
+- Multi-layered security, performance, and quality analysis
+- OWASP Top 10 security pattern detection
+- Algorithm efficiency and database optimization review
+- Design pattern validation and SOLID principles assessment
+- Proactive triggering on git diffs and pre-commit reviews
+
+**HXM Security Expert (`agents/security-expert.md`)**:
+
+- OWASP Top 10 2023 vulnerability assessment and classification
+- Dependency scanning for known CVEs and supply chain risks
+- Secret detection and cryptographic implementation review
+- Threat modeling using STRIDE methodology
+- Proactive triggering on authentication, deployment, and security queries
+
+**HXM Performance Expert (`agents/performance-expert.md`)**:
+
+- Core Web Vitals optimization (LCP, FID, CLS) with specific targets
+- Frontend bundle analysis and backend scalability assessment
+- Database query optimization and caching strategy implementation
+- Load testing framework design and capacity planning
+- Proactive triggering on performance issues and optimization requests
 
 ## Security Model
 
