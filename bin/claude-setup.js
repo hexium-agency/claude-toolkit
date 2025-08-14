@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 // Config variables
 const claudeFiles = [{ src: 'settings.json', dest: 'settings.json' }];
 const rootFiles = [{ src: '.mcp.json', dest: '.mcp.json' }];
-const subDirs = ['commands'];
+const subDirs = ['agents', 'commands'];
 const namespaces = ['hxm'];
 
 console.log('🔧 Installing Claude Code toolkit...');
