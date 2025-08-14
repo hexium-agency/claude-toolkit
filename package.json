@@ -1,6 +1,6 @@
 {
   "name": "@hexium/claude-toolkit",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Claude toolkit for Hexium team",
   "bin": {
     "user-install": "bin/user-install.js",
