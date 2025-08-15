@@ -9,7 +9,7 @@ model: claude-3-5-sonnet-latest
 
 ## Purpose
 
-Smart git commit tool that works as described in the Process section below.
+CRITICAL: Follow the Process section exactly - this tool analyzes staged changes, generates conventional commit messages, and executes git commits through a strict validation workflow. Do not diverge from the defined process.
 
 ## Usage
 
@@ -25,29 +25,29 @@ Smart git commit tool that works as described in the Process section below.
 
 ## Process
 
-**CRITICAL: This command MUST NOT execute in plan mode. If you are in plan mode (indicated by system reminders or restrictions on tool usage), immediately output the following error message and stop execution:**
+**CRITICAL: This command MUST execute only in execution mode. When in plan mode (indicated by system reminders or restrictions on tool usage), immediately output the following error message and stop execution:**
 
-"❌ Error: This command cannot run in plan mode. Please exit plan mode first to execute git operations."
+"❌ Error: This command requires execution mode. Please exit plan mode first to execute git operations."
 
-**Only proceed with the following steps if you are NOT in plan mode:**
+**Proceed with the following steps only when in execution mode:**
 
 1. **Argument Processing**
-   - If both `--all` and `--files` are provided: Exit with error "Cannot use --all and --files together"
+   - If both `--all` and `--files` are provided: Exit with error "Use either --all or --files, not both"
    - If `--all` is provided: Stage all modified files with `git add .`
    - If `--files <file1> <file2>` is provided: Stage only specified files with `git add <files>`
    - If no arguments: Proceed with existing staged changes only
 
 2. **Validation Check**
    - Run `git diff --cached` to check staged changes
-   - **CRITICAL: If NO staged changes exist: Stop and inform user "No staged changes found. Use --all, --files, or manually stage changes first."**
-   - If staged changes exist: Continue to step 3 with the diff in memory
+   - **CRITICAL: When staged changes exist: Continue to step 3 with the diff in memory**
+   - **When NO staged changes exist: Stop and inform user "No staged changes found. Use --all, --files, or manually stage changes first."**
 
 3. **Commit Generation**
    - Analyze the staged diff to determine appropriate commit type (feat, fix, docs, refactor, style, test, chore, etc.)
    - Generate conventional commit message following the format described in the Notes section below
    - Execute the commit using `git commit -m "<message>"`
-   - If the commit succeeds, display success confirmation
-   - If the commit fails, display the error message and exit
+   - When the commit succeeds: Display success confirmation
+   - When the commit fails: Display the error message and exit
 
 ## Notes
 
