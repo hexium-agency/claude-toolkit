@@ -1,5 +1,5 @@
 ---
-allowed-tools: Task
+allowed-tools: Task, Bash(git add:*), Bash(git commit:*)
 argument-hint: --all | --files <file1> <file2> ...
 description: Smart git commit tool based on provided arguments or staged changes.
 model: claude-3-5-sonnet-latest
@@ -19,32 +19,37 @@ CRITICAL: Follow the Process section exactly - this tool analyzes staged changes
 
 ## Arguments
 
-- No arguments: Work with already staged changes only
+- No arguments: Work with already staged changes, or enter interactive selection if none staged
 - `--all`: Stage all modified files with `git add .` before analyzing the diff
 - `--files <file1> <file2> ...`: Stage only the specified files before analyzing the diff
 
 ## Process
 
-**CRITICAL: This command delegates to the commit-worker agent to avoid context interference.**
+**CRITICAL: This command handles argument parsing and git operations, then delegates message generation to commit-worker.**
 
-First, parse the arguments provided to this command, then immediately use the Task tool to launch the commit-worker agent.
+1. **Parse Arguments**
+   - If no arguments AND staged changes exist: Continue with already staged changes
+   - If no arguments AND no staged changes: Enter interactive file selection
+   - If both `--all` and `--files`: Exit with error like "Use either --all or --files, not both"
+   - If `--all`: Stage all modified files with `git add .`
+   - If `--files <file1> <file2> ...`: Stage specified files with `git add <files>`
 
-Arguments parsing:
+2. **Interactive File Selection** (when no args + no staged changes)
+   - Run `git status --porcelain` to get modified/untracked files
+   - Display numbered list of files with their status (M=modified, A=added, D=deleted, ??=untracked)
+   - Ask user to select files by numbers (e.g., "1,3,5" or "1-5" or "all")
+   - Stage selected files with `git add <selected_files>`
+   - If user selects nothing or cancels, exit with "No files selected for commit"
 
-- If no arguments provided: Pass "no arguments" to the worker
-- If --all is provided: Pass "--all" to the worker
-- If --files is provided with file list: Pass "--files" and the complete file list to the worker
+3. **Execute Git Add Operations**
+   - Based on parsed arguments, execute the appropriate `git add` command
+   - No staging operations if no arguments provided and staged changes exist
 
-Then launch the commit-worker with:
+4. **Delegate Message Generation**
+   - Launch git-message-writer agent to analyze staged changes and generate commit message
+   - Writer will validate staged changes and return conventional commit message
+   - If writer reports no changes, exit with error like "No changes to commit"
 
-```
-Execute the git commit workflow with the parsed arguments:
-- Arguments: [the actual parsed arguments from above]
-- Process these arguments according to your specifications
-- Follow the exact validation and commit generation process
-- Use only staged changes from git diff --cached
-- Generate conventional commit messages
-- Execute the commit and report results
-```
-
-The commit-worker agent will handle the complete commit workflow in a clean environment without external context interference.
+5. **Execute Commit**
+   - Use the message returned by writer to execute `git commit -m "<message>"`
+   - Report commit success or failure
