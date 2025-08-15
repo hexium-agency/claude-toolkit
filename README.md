@@ -6,6 +6,10 @@
 
 A standardized toolkit for Claude Code configurations across Hexium team projects. This package installs predefined templates and configurations to ensure consistent AI-assisted development practices.
 
+## 🚨 Prerequisites
+
+**Claude Code must be installed first** before using this toolkit. Install Claude Code from [claude.ai/code](https://www.anthropic.com/claude-code) if you haven't already.
+
 ## ✨ Features
 
 - **Standardized Configuration**: Consistent Claude Code settings across all team projects
@@ -37,11 +41,21 @@ npx @hexium/claude-toolkit@latest project-install
 
 Installs to your project's `.claude/` directory with team configurations.
 
+**💡 Get Help**
+
+Both installation scripts support help flags for detailed usage information:
+
+```bash
+npx @hexium/claude-toolkit@latest user-install --help
+npx @hexium/claude-toolkit@latest project-install --help
+```
+
+Use `-h` or `--help` to see all available options, examples, and detailed descriptions.
+
 ### Requirements
 
 - Node.js 18.0.0 or higher
 - npm or yarn package manager
-- Claude CLI installed for user installation MCP server setup
 
 ### What Gets Created
 
@@ -72,6 +86,22 @@ source ~/.zshrc  # or ~/.bashrc
 
 ### Important: Settings Management
 
+Settings management works differently for user and project installations:
+
+#### User Installation (`~/.claude/`)
+
+For **user installations**, the toolkit uses an interactive merge process that respects your existing settings:
+
+- **Interactive installation**: Prompts you to select which settings to update
+- **Force mode**: `--force` flag overwrites all settings
+- **Opt-out capability**: You can choose to skip specific setting changes during installation
+- **No local overrides**: User-level settings cannot be overridden by `.local.json` files
+- **Backup creation**: Automatic backups are created before any changes
+
+#### Project Installation (`.claude/`)
+
+For **project installations**, settings follow Claude Code's standard hierarchy:
+
 **⚠️ DO NOT edit `.claude/settings.json` directly!**
 
 The `settings.json` file contains team-wide standards and should remain unchanged as it will be overwritten by the setup script. For project-specific customizations, create a `.claude/settings.local.json` file:
@@ -92,9 +122,9 @@ Example `.claude/settings.local.json`:
 }
 ```
 
-**Configuration Hierarchy:**
+**Configuration Hierarchy (project level only):**
 
-1. `.claude/settings.local.json` (highest priority)
+1. `.claude/settings.local.json` (highest priority - project-specific overrides)
 2. `.claude/settings.json` (team defaults)
 
 ### Default Permissions
@@ -144,10 +174,6 @@ npx @hexium/claude-toolkit@latest user-install --force
 
 # Re-run project setup
 npx @hexium/claude-toolkit@latest project-install --force
-
-# Show installation options
-npx @hexium/claude-toolkit@latest user-install --help
-npx @hexium/claude-toolkit@latest project-install --help
 ```
 
 ## 🏗 Team Standards
