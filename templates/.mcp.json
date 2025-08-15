@@ -14,8 +14,7 @@
       "url": "https://mcp.context7.com/sse"
     },
     "sentry": {
-      "type": "sse",
-      "url": "https://mcp.sentry.dev/sse"
+      "url": "https://mcp.sentry.dev/mcp"
     }
   }
 }

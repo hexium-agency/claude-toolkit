@@ -295,6 +295,8 @@ async function configureMcpServers(templatesDir, options = {}) {
         }
       } else if (config.type === 'sse') {
         command = `claude mcp add --scope user --transport sse ${serverName} "${config.url}"`;
+      } else {
+        command = `claude mcp add --scope user ${serverName} "${config.url}"`;
       }
 
       await execAsync(command);
