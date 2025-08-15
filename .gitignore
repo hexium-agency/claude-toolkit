@@ -7,6 +7,7 @@ coverage/
 .DS_Store
 .idea/
 .vscode/
+
 # Ignore Hexium toolkit settings to prevent noise in PRs
 .claude/settings.json
 .claude/*/hxm/*

@@ -15,11 +15,13 @@ A standardized toolkit for Claude Code configurations across Hexium team project
 - **Status Line Integration**: Built-in status line with usage tracking via ccusage
 - **Easy Installation**: One-command setup for new projects
 
-## 📦 Installation
+## 📦 Installation & Setup
 
-Two installation modes are available:
+### Installation Modes
 
-### User Installation (Global Settings)
+Choose your installation type based on your needs:
+
+**User Installation (Global Settings)**
 
 ```bash
 npx @hexium/claude-toolkit@latest user-install
@@ -27,7 +29,7 @@ npx @hexium/claude-toolkit@latest user-install
 
 Installs to your global `~/.claude/` directory with user settings and MCP server configuration.
 
-### Project Installation (Project Settings)
+**Project Installation (Project Settings)**
 
 ```bash
 npx @hexium/claude-toolkit@latest project-install
@@ -41,25 +43,9 @@ Installs to your project's `.claude/` directory with team configurations.
 - npm or yarn package manager
 - Claude CLI installed for user installation MCP server setup
 
-## 🚀 Usage
+### What Gets Created
 
-### Initial Setup
-
-Choose your installation type based on your needs:
-
-**For global user configuration:**
-
-```bash
-npx @hexium/claude-toolkit@latest user-install
-```
-
-**For project-specific configuration:**
-
-```bash
-npx @hexium/claude-toolkit@latest project-install
-```
-
-This creates configuration in the appropriate location with:
+After installation, the following configuration is created in the appropriate location:
 
 - `settings.json` - Team configuration with permissions and defaults
 - `agents/hxm/` - Hexium team expert AI agents
